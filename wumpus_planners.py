@@ -237,28 +237,28 @@ class PlanShotProblem(search.Problem):
         """
         Heuristic that will be used by search.astar_search()
         """
-        "*** YOUR CODE HERE ***"
+        "*** ADITYA CODE HERE ***"
         pass
 
     def actions(self, state):
         """
         Return list of allowed actions that can be made in state
         """
-        "*** YOUR CODE HERE ***"
+        "*** ADITYA CODE HERE ***"
         pass
 
     def result(self, state, action):
         """
         Return the new state after applying action to state
         """
-        "*** YOUR CODE HERE ***"
+        "*** ADITYA CODE HERE ***"
         pass
 
     def goal_test(self, state):
         """
         Return True if state is a goal state
         """
-        "*** YOUR CODE HERE ***"
+        "*** ADITYA CODE HERE ***"
         return True
 
 #-------------------------------------------------------------------------------
