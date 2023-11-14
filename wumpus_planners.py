@@ -132,14 +132,14 @@ class PlanRouteProblem(search.Problem):
         """
         Heuristic that will be used by search.astar_search()
         """
-        "*** ARYAN CODE HERE ***"
+        "*** YOUR CODE HERE ***"
         pass
 
     def actions(self, state):
         """
         Return list of allowed actions that can be made in state
         """
-        "*** ARYAN CODE HERE ***"
+        "*** YOUR CODE HERE ***"
         pass
 
 
@@ -147,14 +147,14 @@ class PlanRouteProblem(search.Problem):
         """
         Return the new state after applying action to state
         """
-        "*** ARYAN CODE HERE ***"
+        "*** YOUR CODE HERE ***"
         pass
 
     def goal_test(self, state):
         """
         Return True if state is a goal state
         """
-        "*** ARYAN CODE HERE ***"
+        "*** YOUR CODE HERE ***"
         return True
 
 #-------------------------------------------------------------------------------
