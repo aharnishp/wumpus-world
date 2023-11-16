@@ -158,11 +158,23 @@ def axiom_generator_percept_sentence(t, tvec):
     Example:
         Input:  [False, True, False, False, True]
         Output: '~Stench0 & Breeze0 & ~Glitter0 & ~Bump0 & Scream0'
+
+    Name: Freya Shah
+    id: AU2120184
+
+    --> Test Input:
+    axiom= axiom_generator_percept_sentence(1,[False, True, False, False, True])
+    print(axiom)
+    --> Output:
+    ~Stench1 & Breeze1 & ~Glitter1 & ~Bump1 & Scream1
     """
-    axiom_str = ''
-    "*** FREYA CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+    percept_prop=[] #stores the percept name with true or false value
+    for i, percept_value in enumerate(tvec): #enumerate keeps track of the index along with the input values
+        percept_name = ['Stench', 'Breeze', 'Glitter', 'Bump', 'Scream'][i] #percept names
+        proposition = f"{'' if percept_value else '~'}{percept_name}{t}" #storing true or false value along with each percept name and time
+        percept_prop.append(proposition) #appending the percept in the list
+    
+    axiom_str = ' & '.join(percept_prop) 
     return axiom_str
 
 
@@ -175,11 +187,17 @@ def axiom_generator_initial_location_assertions(x, y):
     Assert that there is no Pit and no Wumpus in the location
 
     x,y := the location
+
+    Name: Freya Shah
+    id: AU2120184
+
+    ---> Test input:
+    axiom= axiom_generator_initial_location_assertions(1,1)
+    print(axiom)
+    ---> Test output:
+    (~P1_1) & (~W1_1)
     """
-    axiom_str = ''
-    "*** FREYA CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+    axiom_str = '(~{0}) & (~{1})'.format(pit_str(x,y),wumpus_str(x,y)) #asserts that there is no pit and wumpus at the given location by calling the previously defined pit and wumpus functions
     return axiom_str
 
 def axiom_generator_pits_and_breezes(x, y, xmin, xmax, ymin, ymax):
@@ -191,9 +209,25 @@ def axiom_generator_pits_and_breezes(x, y, xmin, xmax, ymin, ymax):
     xmin, xmax, ymin, ymax := the bounds of the environment; you use these
            variables to 'prune' any neighboring locations that are outside
            of the environment (and therefore are walls, so can't have Pits).
+    
+    Name: Freya Shah
+    id: AU2120184
+
+    ---> Test input:
+    axiom= axiom_generator_pits_and_breezes(2,1,0,5,0,5)
+    print(axiom)
+    ---> Test output:
+    B2_1 <=> (P1_1 | P2_0 | P3_1 | P2_2 | P2_1)
     """
     axiom_str = ''
-    "*** FREYA CODE HERE ***"
+
+    pits = []
+    for (xVal,yVal) in [((x-1),y),(x,(y-1)),((x+1),y),(x,(y+1))]: #picking the locations up, below, right and left
+        if xVal >= xmin and xVal <= xmax and yVal >= ymin and yVal <= ymax: # if the location is in the bound of the environment then append in pits list
+            pits.append(pit_str(xVal,yVal))
+    pits.append('P'+str(x)+'_'+str(y)) #append the the given location
+    axiom_str += '{0} <=> ({1})'.format(breeze_str(x,y),(' | ').join(pits)) #axiom that asserts breezes are found in location where there are one or more Pits in a neighboring location (or the same location!)
+
     return axiom_str
 
 def generate_pit_and_breeze_axioms(xmin, xmax, ymin, ymax):
@@ -217,10 +251,25 @@ def axiom_generator_wumpus_and_stench(x, y, xmin, xmax, ymin, ymax):
     xmin, xmax, ymin, ymax := the bounds of the environment; you use these
            variables to 'prune' any neighboring locations that are outside
            of the environment (and therefore are walls, so can't have Wumpi).
+
+    Name: Freya Shah
+    id: AU2120184
+
+    ---> Test input:
+    axiom= axiom_generator_wumpus_and_stench(2,1,0,5,0,5)
+    print(axiom)
+    ---> Test output:
+    S2_1 <=> (W1_1 | W2_0 | W3_1 | W2_2 | W2_1)
     """
     axiom_str = ''
-    "*** FREYA CODE HERE ***"
+    wumpus = []
+    for (xVal, yVal) in [((x - 1), y), (x, (y - 1)), ((x + 1), y), (x, (y + 1))]: #picking the locations up, below, right and left
+        if xVal >= xmin and xVal <= xmax and yVal >= ymin and yVal <= ymax: # if the location is in the bound of the environment then append in wumpus list
+            wumpus.append(wumpus_str(xVal, yVal))
+    wumpus.append('W'+str(x)+'_'+str(y))
+    axiom_str = '{0} <=> ({1})'.format(stench_str(x, y), (' | ').join(wumpus)) #axiom that asserts that Stenches (atemporal) are only found in locations where there are one or more Wumpi in a neighboring location (or the same location!)
     return axiom_str
+
 
 def generate_wumpus_and_stench_axioms(xmin, xmax, ymin, ymax):
     axioms = []
