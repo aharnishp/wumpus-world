@@ -599,59 +599,143 @@ def generate_non_location_ssa(t):
     axioms.extend(generate_heading_ssa(t))
     return filter(lambda s: s != '', axioms)
 
+
+
 #----------------------------------
 
+# Written by Aryan Prajapati
+
+# q.)
+# q.1)
 def axiom_generator_heading_only_north(t):
     """
-    Assert that when heading is North, the agent is
-    not heading any other direction.
+    Name: Aryan Prajapati [AU2140090]
 
+    Here, we are generating an axiom which ensures that agent is only heading in north direction at a given time t. 
+    In the code we are using already defined functions. 
+    state_heading_north_str(t), state_heading_east_str(t), state_heading_south_str(t), and state_heading_west_str(t) are functions that return string representations of different heading states at a specific time t. 
+    
+    --> Axiom Form: 
+        (north_t <=> (negated direction_t list)) 
+
+    --> Test Input:
+    t=1
+    print(axiom_generator_heading_only_north(t)) 
+
+    --> Output:
+    (HeadingNorth1 <=> (~HeadingEast1 & ~HeadingSouth1 & ~HeadingWest1))
+    
+    --> Explanation:
+     If the agent is heading north at time 1, it must not be heading in any other direction, and if the agent is not heading east, south, or west, it must be heading north.
+     The 1 is appended to direction to represent the time index t. 
+    """
+    """
+    Assert that when heading is North, the agent is not heading any other direction.
     t := time
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+    negated_directions= '~{0} & ~{1} & ~{2}'.format(state_heading_east_str(t), state_heading_south_str(t),state_heading_west_str(t))        #left side's direction in eq. (north_t <=> (negated direction_t list)) 
+    #print(negated_directions)
+    axiom_str= '({0} <=> ({1}))'.format(state_heading_north_str(t), negated_directions)                                                    #whole equation formatting
     return axiom_str
 
-def axiom_generator_heading_only_east(t):
     """
-    Assert that when heading is East, the agent is
-    not heading any other direction.
+    OR
 
-    t := time
+    negated_directions= ['~'+direction+str(t) for direction in proposition_bases_state_fluents[1:4]]
+    axiom_str= '({0}{1} <=> ({2}))'.format(proposition_bases_state_fluents[0],str(t)," & ".join(negated_directions))
+
+    *** Note - here we are directly using proposition fluents list to get the output and not using the state functions ***
+    proposition_bases_state_fluents = ['HeadingNorth', 'HeadingEast',
+                                       'HeadingSouth', 'HeadingWest',
+                                       'HaveArrow', 'WumpusAlive']
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
-    return axiom_str
 
+# Written by Aryan Prajapati
+# q.2)
 def axiom_generator_heading_only_south(t):
     """
-    Assert that when heading is South, the agent is
-    not heading any other direction.
+    Name: Aryan Prajapati [AU2140090]
 
-    t := time
+    Here, we are generating an axiom which ensures that agent is heading only in south direction at a given time t. 
+    
+    --> Axiom Form: 
+        (south_t <=> (negated direction_t list)) 
+
+    --> Test Input:
+    t=1
+    print(axiom_generator_heading_only_south(t)) 
+
+    --> Output:
+    (HeadingSouth1 <=> (~HeadingEast1 & ~HeadingNorth1 & ~HeadingWest1))
+    
+    --> Explanation:
+     If the agent is heading south at time 1, it must not be heading in any other direction, and if the agent is not heading east, north or west, it must be heading south.
+     The 1 is appended to direction to represent the time index t. 
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+    negated_directions= '~{0} & ~{1} & ~{2}'.format(state_heading_east_str(t),state_heading_north_str(t),state_heading_west_str(t))
+    axiom_str ='({0} <=> ({1}))'.format(state_heading_south_str(t), negated_directions)
     return axiom_str
 
+
+# Written by Aryan Prajapati
+# q.3)
+def axiom_generator_heading_only_east(t):
+    """
+    Name: Aryan Prajapati
+    Roll no.: AU2140090
+
+    Here, we are generating an axiom which ensures that agent is heading only in east direction at a given time t. 
+    
+    --> Axiom Form: 
+        (east_t <=> (negated direction_t list)) 
+
+    --> Test Input:
+    t=1
+    print(axiom_generator_heading_only_east(t)) 
+
+    --> Output:
+    (HeadingEast1 <=> (~HeadingNorth1 & ~HeadingSouth1 & ~HeadingWest1))
+    
+    --> Explanation:
+     If the agent is heading east at time 1, it must not be heading in any other direction, and if the agent is not heading north,south or west, it must be heading east.
+     The 1 is appended to direction to represent the time index t. 
+    """
+    """
+    Assert that when heading is east, the agent is not heading any other direction.
+    t := time
+    """
+    negated_directions= '~{0} & ~{1} & ~{2}'.format(state_heading_north_str(t), state_heading_south_str(t),state_heading_west_str(t))
+    axiom_str= '({0} <=> ({1}))'.format(state_heading_east_str(t), negated_directions)
+    return axiom_str
+
+
+# Written by Aryan Prajapati
+# q.4)
 def axiom_generator_heading_only_west(t):
     """
-    Assert that when heading is West, the agent is
-    not heading any other direction.
+    Name: Aryan Prajapati [AU2140090]
 
-    t := time
+    Here, we are generating an axiom which ensures that agent is heading only in west direction at a given time t. 
+    
+    --> Axiom Form: 
+        (west_t <=> (negated direction_t list)) 
+
+    --> Test Input:
+    t=1
+    print(axiom_generator_heading_only_west(t)) 
+
+    --> Output:
+    (HeadingWest1 <=> (~HeadingNorth1 & ~HeadingSouth1 & ~HeadingEast1))
+    
+    --> Explanation:
+     If the agent is heading west at time 1, it must not be heading in any other direction, and if the agent is not heading north,south or west, it must be heading east.
+     The 1 is appended to direction to represent the time index t. 
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+    negated_directions= '~{0} & ~{1} & ~{2}'.format(state_heading_north_str(t), state_heading_south_str(t),state_heading_east_str(t))
+    axiom_str= '({0} <=> ({1}))'.format(state_heading_west_str(t), negated_directions)
     return axiom_str
+
+
 
 def generate_heading_only_one_direction_axioms(t):
     return [axiom_generator_heading_only_north(t),
@@ -660,17 +744,53 @@ def generate_heading_only_one_direction_axioms(t):
             axiom_generator_heading_only_west(t)]
 
 
+# Written by Aryan Prajapati
+# r.)
 def axiom_generator_only_one_action_axioms(t):
     """
-    Assert that only one axion can be executed at a time.
+    Name: Aryan Prajapati [AU2140090]
+
+    Here, we are generating axioms which ensures that only one action can be executed at a given time t.
     
+    --> Axiom Form: 
+        (action_t <=> (negated action_t list))    {action_t is not in the negated action_t list, <=> (if and only if) operator}
+
+    --> Test Input:
+    t = 1
+    axioms_str = axiom_generator_only_one_action_axioms(t)
+    print(axioms_str)                  
+        
+    --> Output:
+    (TurnRight1 <=> (~TurnLeft1 & ~Forward1 & ~Grab1 & ~Climb1 & ~Shoot1 & ~Wait1)) & (TurnLeft1 <=> (~TurnRight1 & ~Forward1 & ~Grab1 & ~Climb1 & ~Shoot1 & ~Wait1)) & (Forward1 <=> (~TurnRight1 & ~TurnLeft1 & ~Grab1 & ~Climb1 & ~Shoot1 & ~Wait1)) & (Grab1 <=> (~TurnRight1 & ~TurnLeft1 & ~Forward1 & ~Climb1 & ~Shoot1 & ~Wait1)) & (Climb1 <=> (~TurnRight1 & ~TurnLeft1 & ~Forward1 & ~Grab1 & ~Shoot1 & ~Wait1)) & (Shoot1 <=> (~TurnRight1 & ~TurnLeft1 & ~Forward1 & ~Grab1 & ~Climb1 & ~Wait1)) & (Wait1 <=> (~TurnRight1 & ~TurnLeft1 & ~Forward1 & ~Grab1 & ~Climb1 & ~Shoot1))
+    
+    i.e we get a conjuction of 7 axiom of the form mentioned above.
+
+    --> Explanation:
+
+    It means that if "TurnRight" is true at time 1, then all other actions must be false at time 1, and if all other actions are false at time 1, then "TurnRight" must be true. 
+    The 1 is appended to the action names (e.g., Forward1, Grab1) to represent the time index t. This indicates that the actions are associated with a specific time step.
+
+    """
+    """
+    Assert that only one axion can be executed at a time.
     t := time
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+
+    axiom_str = ""
+    actions  = ['TurnRight', 'TurnLeft', 'Forward', 'Grab', 'Climb', 'Shoot', 'Wait'] #from wumpus.py file
+
+    length=len(actions)
+
+    for i in range(0,length):                                                   #loop is used to generate negated action list by using array slicing. And to form the axiom equation. 
+        a=actions[i]                                                            #left side single action in the eq. (action_t <=> (negated action_t list)) 
+        b=actions[0:i] + actions[i+1:length]                                    #right side's negated actions in the eq. (action_t <=> (negated action_t list)) 
+        negated_actions= ["~"+ action+str(t) for action in b]                   #loop is used to place '~' sign before every action elemnt in the list.
+        axiom_str = axiom_str + '({0}{1} <=> ({2}))'.format(a,str(t),' & '.join(negated_actions)) +" & "        #combining everything here using '+' operator and string formatting
+
+    axiom_str = axiom_str.rstrip(' & ')                                         #removing extra " & " from the right side of the string
+
     return axiom_str
+
 
 
 def generate_mutually_exclusive_axioms(t):
