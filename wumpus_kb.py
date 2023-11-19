@@ -280,16 +280,35 @@ def generate_wumpus_and_stench_axioms(xmin, xmax, ymin, ymax):
         utils.print_not_implemented('axiom_generator_wumpus_and_stench')
     return axioms
 
-def axiom_generator_at_least_one_wumpus(xmin, xmax, ymin, ymax):
+def axiom_generator_at_least_one_wumpus(xmin, xmax, ymin, ymax):    # assuming inclusive range 
     """
     Assert that there is at least one Wumpus.
 
     xmin, xmax, ymin, ymax := the bounds of the environment.
+
+    Name: Aharnish Pithva
+    id: AU2040022
+
+    ---> Test input:
+    axiom= axiom_generator_at_least_one_wumpus(0,3,0,3)
+    print(axiom)
+    ---> Test output:
+    W0_0 | W0_1 | W0_2 | W0_3 | W1_0 | W1_1 | W1_2 | W1_3 | W2_0 | W2_1 | W2_2 | W2_3 | W3_0 | W3_1 | W3_2 | W3_3
     """
     axiom_str = ''
-    "*** AHARNISH CODE HERE ***"
+    possible_wumpus_pos = []
+
+    for y in range(ymin,ymax+1):
+        for x in range(xmin, xmax + 1):
+            possible_wumpus_pos.append([x,y])
+
+    for indx, this_pos in iter(possible_wumpus_pos):
+        if(indx != 0):
+            axiom_str += " | "
+        axiom_str += wumpus_str(this_pos[0],this_pos[1])
+
     # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+    # utils.print_not_implemented()
     return axiom_str
 
 def axiom_generator_at_most_one_wumpus(xmin, xmax, ymin, ymax):
@@ -300,8 +319,40 @@ def axiom_generator_at_most_one_wumpus(xmin, xmax, ymin, ymax):
     """
     axiom_str = ''
     "*** AHARNISH CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+
+    # initially insert a case when there is no wumpus on the board, because the function is for at most one qumpus
+    axiom_str += '('
+    for y in range(ymin,ymax+1):
+        for x in range(xmin, xmax + 1):
+            if(x != 0 or y != 0):
+                axiom_str += " & "
+            axiom_str += "~" + wumpus_str(x,y)
+
+    axiom_str += ') | '
+
+    # array such that there is exactly one wumpus on the board for every grid positions on the board.
+    array_single_wumpus = []
+
+    for y in range(ymin,ymax+1):
+        for x in range(xmin, xmax + 1):
+            if(x != 0 or y != 0):
+                axiom_str += " | "
+            axiom_str += "("
+
+            # inner loop to generate a single state where there is wumpus at exactly single position on the board
+            for xi in range(xmin, xmax + 1):
+                for yi in range(ymin,ymax+1):
+                    if(xi != 0 or yi != 0):
+                        axiom_str += " & "
+                    if(x == xi and y == yi):    # this state represents wumpus at position (xi, yi)
+                        axiom_str += wumpus_str(xi,yi)
+                    else:                       # this state represents wumpus not at (xi, yi)
+                        axiom_str += "~" +wumpus_str(xi,yi)
+
+            axiom_str += ")"
+            
+    
+
     return axiom_str
 
 def axiom_generator_only_in_one_location(xi, yi, xmin, xmax, ymin, ymax, t = 0):
