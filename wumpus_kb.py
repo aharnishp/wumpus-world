@@ -316,9 +316,19 @@ def axiom_generator_at_most_one_wumpus(xmin, xmax, ymin, ymax):
     Assert that there is at at most one Wumpus.
 
     xmin, xmax, ymin, ymax := the bounds of the environment.
+
+
+
+    Name: Aharnish Pithva
+    id: AU2040022
+
+    ---> Test input:
+    axiom= axiom_generator_at_most_one_wumpus(0,2,0,2)
+    print(axiom)
+    ---> Test output:
+    (~W0_0 & ~W1_0 & ~W2_0 & ~W0_1 & ~W1_1 & ~W2_1 & ~W0_2 & ~W1_2 & ~W2_2) | (W0_0 & ~W0_1 & ~W0_2 & ~W1_0 & ~W1_1 & ~W1_2 & ~W2_0 & ~W2_1 & ~W2_2) | (~W0_0 & ~W0_1 & ~W0_2 & W1_0 & ~W1_1 & ~W1_2 & ~W2_0 & ~W2_1 & ~W2_2) | (~W0_0 & ~W0_1 & ~W0_2 & ~W1_0 & ~W1_1 & ~W1_2 & W2_0 & ~W2_1 & ~W2_2) | (~W0_0 & W0_1 & ~W0_2 & ~W1_0 & ~W1_1 & ~W1_2 & ~W2_0 & ~W2_1 & ~W2_2) | (~W0_0 & ~W0_1 & ~W0_2 & ~W1_0 & W1_1 & ~W1_2 & ~W2_0 & ~W2_1 & ~W2_2) | (~W0_0 & ~W0_1 & ~W0_2 & ~W1_0 & ~W1_1 & ~W1_2 & ~W2_0 & W2_1 & ~W2_2) | (~W0_0 & ~W0_1 & W0_2 & ~W1_0 & ~W1_1 & ~W1_2 & ~W2_0 & ~W2_1 & ~W2_2) | (~W0_0 & ~W0_1 & ~W0_2 & ~W1_0 & ~W1_1 & W1_2 & ~W2_0 & ~W2_1 & ~W2_2) | (~W0_0 & ~W0_1 & ~W0_2 & ~W1_0 & ~W1_1 & ~W1_2 & ~W2_0 & ~W2_1 & W2_2)
     """
     axiom_str = ''
-    "*** AHARNISH CODE HERE ***"
 
     # initially insert a case when there is no wumpus on the board, because the function is for at most one qumpus
     axiom_str += '('
@@ -355,7 +365,7 @@ def axiom_generator_at_most_one_wumpus(xmin, xmax, ymin, ymax):
 
     return axiom_str
 
-def axiom_generator_only_in_one_location(xi, yi, xmin, xmax, ymin, ymax, t = 0):
+def axiom_generator_only_in_one_location(px, py, xmin, xmax, ymin, ymax, t = 0):
     """
     Assert that the Agent can only be in one (the current xi,yi) location at time t.
 
@@ -365,8 +375,45 @@ def axiom_generator_only_in_one_location(xi, yi, xmin, xmax, ymin, ymax, t = 0):
     """
     axiom_str = ''
     "*** AHARNISH CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+def axiom_generator_only_in_one_location(px, py, xmin, xmax, ymin, ymax, t = 0):
+    """
+    Assert that the Agent can only be in one (the current xi,yi) location at time t.
+
+    xi,yi := the current location.
+    xmin, xmax, ymin, ymax := the bounds of the environment.
+    t := time; default=0
+    """
+    axiom_str = ''
+    "*** AHARNISH CODE HERE ***"
+
+
+    # inner loop to generate a single state where there is wumpus at exactly single position on the board
+    for xi in range(xmin, xmax + 1):
+        for yi in range(ymin,ymax+1):
+            if(xi != 0 or yi != 0):
+                axiom_str += " & "
+            if(px == xi and py == yi):    # this state represents wumpus at position (xi, yi)
+                axiom_str += state_loc_str(xi,yi,t=t)
+            else:                       # this state represents wumpus not at (xi, yi)
+                axiom_str += "~" + state_loc_str(xi,yi,t=t)
+                
+    # axiom_str += ")"
+
+    return axiom_str
+
+
+    # inner loop to generate a single state where there is wumpus at exactly single position on the board
+    for xi in range(xmin, xmax + 1):
+        for yi in range(ymin,ymax+1):
+            if(xi != 0 or yi != 0):
+                axiom_str += " & "
+            if(px == xi and py == yi):    # this state represents wumpus at position (xi, yi)
+                axiom_str += state_loc_str(xi,yi,t=t)
+            else:                       # this state represents wumpus not at (xi, yi)
+                axiom_str += "~" + state_loc_str(xi,yi,t=t)
+                
+    # axiom_str += ")"
+
     return axiom_str
 
 def axiom_generator_only_one_heading(heading = 'north', t = 0):
@@ -377,10 +424,23 @@ def axiom_generator_only_one_heading(heading = 'north', t = 0):
                will be one of: 'north', 'east', 'south', 'west'
     t := time; default=0
     """
+
+    legal_headings = ["north", 'east', 'south', 'west']
+
     axiom_str = ''
     "*** AHARNISH CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+
+    for indx, this_heading in iter(legal_headings):
+        if(indx != 0):
+            axiom_str += " & "
+        if(heading.lower() == this_heading.lower()):
+            axiom_str += heading.lower()
+        else:
+            axiom_str += "~" + heading.lower()
+        
+        # insert current time to the knowledge state
+        axiom_str += t
+
     return axiom_str
 
 def axiom_generator_have_arrow_and_wumpus_alive(t = 0):
