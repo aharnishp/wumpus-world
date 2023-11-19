@@ -334,14 +334,14 @@ def axiom_generator_only_one_heading(heading = 'north', t = 0):
 
 def axiom_generator_have_arrow_and_wumpus_alive(t = 0):
     """
-    Assert that Agent has the arrow and the Wumpus is alive at time t.
+    Asserts that Agent has the arrow and the Wumpus is alive at time t.
 
     t := time; default=0
+
+    Name: Freya Shah
+    id: AU2120184
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+    axiom_str = '{0} & {1}'.format(state_have_arrow_str(t),state_wumpus_alive_str(t))
     return axiom_str
 
 
