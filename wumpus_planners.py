@@ -229,6 +229,9 @@ class PlanRouteProblem(search.Problem):
     def goal_test(self, state):
         """
         Return True if state is a goal state
+
+        Name: Bhargav Kargatiya
+        Number:AU2140121
         """
         "*** Bhargav CODE HERE ***"
         if (state[0:2] in self.goals):
