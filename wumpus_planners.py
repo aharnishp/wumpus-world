@@ -231,7 +231,10 @@ class PlanRouteProblem(search.Problem):
         Return True if state is a goal state
         """
         "*** Bhargav CODE HERE ***"
-        return state[0:2] in self.goals
+        if (state[0:2] in self.goals):
+            return True
+        return False
+
 
 #-------------------------------------------------------------------------------
 
