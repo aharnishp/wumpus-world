@@ -159,12 +159,50 @@ class PlanRouteProblem(search.Problem):
         return h_value
 
     
+    # Written by Aryan Prajapati
     def actions(self, state):
+        #Return list of allowed actions that can be made in state
         """
-        Return list of allowed actions that can be made in state
+        Name: Aryan Prajapati [AU2140090]
+
+        Here, we are checking the heading and next state to determine whether moving forward is allowed. A dictionary (next_position) is used to map the possible next positions. 
+
+        --> Test Input:
+        i_state=(0,0,0)
+        g_states=[(3,3,0),(1,2,1),(0,0,2)]
+        a_states=[(0,0),(0,1),(1,0),(1,1),(2,2),(3,3)]
+        problem_instance = PlanRouteProblem(i_state, g_states, a_states)
+
+        current_state = (0, 0, 1)   # i.e. agent is at (0,0) facing west
+        possible_actions = problem_instance.actions(current_state)
+        print(possible_actions)
+
+        --> Output:
+        ['TurnRight', 'TurnLeft']    
+        *(neighbouring allowed states are (0,1) and (1,0) but it is facing west so it can't go directly forward. Thus a disallowed_actions list is returned)
+
+        for current_state=(0,0,3) # i.e. agent is at (0,0) facing east
+        --> Output:
+        ['Forward', 'TurnRight', 'TurnLeft']
         """
-        "*** Aryan CODE HERE ***"
-        pass
+        allowed_actions = ['Forward','TurnRight','TurnLeft']
+        disallowed_actions = ['TurnRight','TurnLeft']
+
+        #possible next positions based on the current heading
+        next_position = {
+            0: (state[0], state[1] + 1),  # heading north
+            1: (state[0] - 1, state[1]),  # heading west
+            2: (state[0], state[1] - 1),  # heading south
+            3: (state[0] + 1, state[1]),  # heading east
+        }
+        #print(next_position)
+        # checking if moving forward is allowed based on the current heading and allowed states
+        if state[2] in next_position and next_position[state[2]] in self.allowed:
+            return allowed_actions                  # allow forward movement
+        else:
+            return disallowed_actions               # no forward movement
+
+
 
 
     def result(self, state, action):
