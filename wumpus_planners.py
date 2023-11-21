@@ -208,16 +208,30 @@ class PlanRouteProblem(search.Problem):
     def result(self, state, action):
         """
         Return the new state after applying action to state
+
+        Name: Bhargav Kargatiya
+        Number:AU2140121
         """
         "*** Bhargav CODE HERE ***"
-        pass
+         if action == 'TurnRight':
+            new_heading = (state[2] + 3) % 4
+            return (state[0], state[1], new_heading)
+
+        if action == 'TurnLeft':
+            new_heading = (state[2] + 1) % 4
+            return (state[0], state[1], new_heading)
+
+        if action == 'Forward':
+            direction_changes = [(0, 1), (-1, 0), (0, -1), (1, 0)]
+            x_change, y_change = direction_changes[state[2]]
+            return (state[0] + x_change, state[1] + y_change, state[2])
 
     def goal_test(self, state):
         """
         Return True if state is a goal state
         """
         "*** Bhargav CODE HERE ***"
-        return True
+        return state[0:2] in self.goals
 
 #-------------------------------------------------------------------------------
 
