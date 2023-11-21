@@ -128,13 +128,37 @@ class PlanRouteProblem(search.Problem):
         self.goals = goals     # list of goals that can be achieved
         self.allowed = allowed # the states we can move into
 
+    # Written by Aryan Prajapati
     def h(self,node):
+        #heuristic for A * search using Manhattan distance 
         """
-        Heuristic that will be used by search.astar_search()
+        Name: Aryan Prajapati [AU2140090]
+    
+        Here the 'h' method uses the manhattan_distance_with_heading func. to calculate the distances with heading for each goal state. It returns the minimum calculated distance from the list.
+        
+        --> Test Input:
+        i_state=(0,0,0)
+        g_states=[(3,3,0),(1,2,1),(0,0,2)]
+        a_states=[(0,0),(0,1),(1,0),(1,1),(2,2),(3,3)]
+        instance_1 = PlanRouteProblem(i_state,g_states,a_states)
+        example_node = Node((1, 1, 0)) # assuming node with a state
+        print("Heuristic value:", instance_1.h(example_node))
+    
+        --> Output:
+            Heuristic value: 1
+            {calc_distance list -- [5, 1, 4]}
         """
-        "*** Aryan CODE HERE ***"
-        pass
+        current_state= node.state
+        calc_distance=[]
+        g_arr=self.goals
+        for goal_state in g_arr:                                                    #traversing through goal state array 
+            distance =manhattan_distance_with_heading(current_state, goal_state)    #calculating distances using predefined func.
+            calc_distance.append(distance)
+        #print(calc_distance)
+        h_value= min(calc_distance)                                                 #returning the minimum dist value
+        return h_value
 
+    
     def actions(self, state):
         """
         Return list of allowed actions that can be made in state
