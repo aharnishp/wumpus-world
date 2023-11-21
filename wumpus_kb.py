@@ -677,11 +677,11 @@ def axiom_generator_wumpus_alive_ssa(t):
     can infer that the Wumpus is actually dead.)
 
     t := time
+
+    Name: Raiyan Diwan
+    ID: AU2140111
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+    axiom_str = '{0} <=> ({1} & ~{2})'.format(state_wumpus_alive_str(t+1),state_wumpus_alive_str(t),percept_scream_str(t+1))
     return axiom_str
 
 #----------------------------------
@@ -693,11 +693,16 @@ def axiom_generator_heading_north_ssa(t):
     Agent heading will be North at time t+1
 
     t := time
+    
+    Name: Raiyan Diwan
+    ID: AU2140111
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+
+    no_move = '({0} & ({1} | {2} | {3} | {4} | {5}))'.format(state_heading_north_str(t),action_wait_str(t),action_grab_str(t),
+                                                    action_shoot_str(t),percept_bump_str(t+1),action_forward_str(t))
+    turn_left = '({0} & {1})'.format(state_heading_east_str(t),action_turn_left_str(t))
+    turn_right = '({0} & {1})'.format(state_heading_west_str(t),action_turn_right_str(t))
+    axiom_str = '{0} <=> ({1} | {2} | {3})'.format(state_heading_north_str(t+1),no_move,turn_left,turn_right)
     return axiom_str
 
 def axiom_generator_heading_east_ssa(t):
@@ -706,11 +711,15 @@ def axiom_generator_heading_east_ssa(t):
     Agent heading will be East at time t+1
 
     t := time
+    
+    Name: Raiyan Diwan
+    ID: AU2140111
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+    no_move = '({0} & ({1} | {2} | {3} | {4} | {5}))'.format(state_heading_east_str(t),action_wait_str(t),action_grab_str(t),
+                                                    action_shoot_str(t),percept_bump_str(t+1),action_forward_str(t))
+    turn_left = '({0} & {1})'.format(state_heading_south_str(t),action_turn_left_str(t))
+    turn_right = '({0} & {1})'.format(state_heading_north_str(t),action_turn_right_str(t))
+    axiom_str = '{0} <=> ({1} | {2} | {3})'.format(state_heading_east_str(t+1),no_move,turn_left,turn_right)
     return axiom_str
 
 def axiom_generator_heading_south_ssa(t):
@@ -719,11 +728,15 @@ def axiom_generator_heading_south_ssa(t):
     Agent heading will be South at time t+1
 
     t := time
+    
+    Name: Raiyan Diwan
+    ID: AU2140111
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+    no_move = '({0} & ({1} | {2} | {3} | {4} | {5}))'.format(state_heading_south_str(t),action_wait_str(t),action_grab_str(t),
+                                                    action_shoot_str(t),percept_bump_str(t+1),action_forward_str(t))
+    turn_left = '({0} & {1})'.format(state_heading_west_str(t),action_turn_left_str(t))
+    turn_right = '({0} & {1})'.format(state_heading_east_str(t),action_turn_right_str(t))
+    axiom_str = '{0} <=> ({1} | {2} | {3})'.format(state_heading_south_str(t+1),no_move,turn_left,turn_right)
     return axiom_str
 
 def axiom_generator_heading_west_ssa(t):
@@ -732,11 +745,15 @@ def axiom_generator_heading_west_ssa(t):
     Agent heading will be West at time t+1
 
     t := time
+    
+    Name: Raiyan Diwan
+    ID: AU2140111
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+    no_move = '({0} & ({1} | {2} | {3} | {4} | {5}))'.format(state_heading_west_str(t),action_wait_str(t),action_grab_str(t),
+                                                    action_shoot_str(t),percept_bump_str(t+1),action_forward_str(t))
+    turn_left = '({0} & {1})'.format(state_heading_north_str(t),action_turn_left_str(t))
+    turn_right = '({0} & {1})'.format(state_heading_south_str(t),action_turn_right_str(t))
+    axiom_str = '{0} <=> ({1} | {2} | {3})'.format(state_heading_west_str(t+1),no_move,turn_left,turn_right)
     return axiom_str
 
 def generate_heading_ssa(t):
