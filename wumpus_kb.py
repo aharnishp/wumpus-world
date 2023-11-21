@@ -698,8 +698,7 @@ def axiom_generator_heading_north_ssa(t):
     ID: AU2140111
     """
 
-    no_move = '({0} & ({1} | {2} | {3} | {4} | {5}))'.format(state_heading_north_str(t),action_wait_str(t),action_grab_str(t),
-                                                    action_shoot_str(t),percept_bump_str(t+1),action_forward_str(t))
+    no_move = '({0} & ({1} | {2} | {3} | {4} | {5}))'.format(state_heading_north_str(t),action_wait_str(t),action_grab_str(t),action_shoot_str(t),percept_bump_str(t+1),action_forward_str(t))
     turn_left = '({0} & {1})'.format(state_heading_east_str(t),action_turn_left_str(t))
     turn_right = '({0} & {1})'.format(state_heading_west_str(t),action_turn_right_str(t))
     axiom_str = '{0} <=> ({1} | {2} | {3})'.format(state_heading_north_str(t+1),no_move,turn_left,turn_right)
@@ -715,8 +714,7 @@ def axiom_generator_heading_east_ssa(t):
     Name: Raiyan Diwan
     ID: AU2140111
     """
-    no_move = '({0} & ({1} | {2} | {3} | {4} | {5}))'.format(state_heading_east_str(t),action_wait_str(t),action_grab_str(t),
-                                                    action_shoot_str(t),percept_bump_str(t+1),action_forward_str(t))
+    no_move = '({0} & ({1} | {2} | {3} | {4} | {5}))'.format(state_heading_east_str(t),action_wait_str(t),action_grab_str(t),action_shoot_str(t),percept_bump_str(t+1),action_forward_str(t))
     turn_left = '({0} & {1})'.format(state_heading_south_str(t),action_turn_left_str(t))
     turn_right = '({0} & {1})'.format(state_heading_north_str(t),action_turn_right_str(t))
     axiom_str = '{0} <=> ({1} | {2} | {3})'.format(state_heading_east_str(t+1),no_move,turn_left,turn_right)
@@ -732,8 +730,7 @@ def axiom_generator_heading_south_ssa(t):
     Name: Raiyan Diwan
     ID: AU2140111
     """
-    no_move = '({0} & ({1} | {2} | {3} | {4} | {5}))'.format(state_heading_south_str(t),action_wait_str(t),action_grab_str(t),
-                                                    action_shoot_str(t),percept_bump_str(t+1),action_forward_str(t))
+    no_move = '({0} & ({1} | {2} | {3} | {4} | {5}))'.format(state_heading_south_str(t),action_wait_str(t),action_grab_str(t),action_shoot_str(t),percept_bump_str(t+1),action_forward_str(t))
     turn_left = '({0} & {1})'.format(state_heading_west_str(t),action_turn_left_str(t))
     turn_right = '({0} & {1})'.format(state_heading_east_str(t),action_turn_right_str(t))
     axiom_str = '{0} <=> ({1} | {2} | {3})'.format(state_heading_south_str(t+1),no_move,turn_left,turn_right)
@@ -749,8 +746,7 @@ def axiom_generator_heading_west_ssa(t):
     Name: Raiyan Diwan
     ID: AU2140111
     """
-    no_move = '({0} & ({1} | {2} | {3} | {4} | {5}))'.format(state_heading_west_str(t),action_wait_str(t),action_grab_str(t),
-                                                    action_shoot_str(t),percept_bump_str(t+1),action_forward_str(t))
+    no_move = '({0} & ({1} | {2} | {3} | {4} | {5}))'.format(state_heading_west_str(t),action_wait_str(t),action_grab_str(t),action_shoot_str(t),percept_bump_str(t+1),action_forward_str(t))
     turn_left = '({0} & {1})'.format(state_heading_north_str(t),action_turn_left_str(t))
     turn_right = '({0} & {1})'.format(state_heading_south_str(t),action_turn_right_str(t))
     axiom_str = '{0} <=> ({1} | {2} | {3})'.format(state_heading_west_str(t+1),no_move,turn_left,turn_right)
