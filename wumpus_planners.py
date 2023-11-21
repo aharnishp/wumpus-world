@@ -317,17 +317,68 @@ class PlanShotProblem(search.Problem):
 
     def h(self, node):
         """
-        Heuristic that will be used by search.astar_search()
+        A heuristic function designed for use in search.astar_search()
+
+        Args:
+            self: The instance of the class containing this method.
+        node: The current node in the search space.
+
+        Returns:
+            int: The calculated heuristic value.
+        Name: Freya Shah
+        id: AU2120184 
         """
-        "*** Freya CODE HERE ***"
-        pass
+        # Extract possible Wumpus locations and explorer locations
+        possible_wumpus_locations = self.goals
+        explorer_locations = self.allowed
+        shot_spots = []
+
+        # Identify spots where the Wumpus can be shot based on their coordinates
+        for wumpus_loc in possible_wumpus_locations:
+            for explorer_loc in explorer_locations:
+                # If either the x or y coordinate matches, the Wumpus can be shot from this location
+                if wumpus_loc[0] == explorer_loc[0] or wumpus_loc[1] == explorer_loc[1]:
+                    shot_spots.append(explorer_loc)
+
+        # Calculate the Manhattan distance with heading for each shot spot
+        distance_to_shot_spots = [manhattan_distance_with_heading(node.state, goal) for goal in shot_spots]
+
+        current_state= node.state
+        calc_distance=[]
+        for goal_state in shot_spots: #traversing through shot spots
+            distance =manhattan_distance_with_heading(current_state, goal_state)    #calculating distances using predefined func.
+            calc_distance.append(distance)
+    
+        h_value= min(calc_distance)        
+    # Return the minimum distance as the heuristic value
+    return h_value
 
     def actions(self, state):
         """
-        Return list of allowed actions that can be made in state
+        Return a list of allowed actions that can be made in the given state.
+
+        Args:
+            self: The instance of the class containing this method.
+            state: The current state of the agent.
+
+        Returns:
+            list: A list of allowed actions based on the current state.
+
+        Name: Freya Shah
+        id: AU2120184
         """
-        "*** Freya CODE HERE ***"
-        pass
+        allowed_Forward = ['Forward', 'TurnRight', 'TurnLeft']
+        not_Forward = ['TurnRight', 'TurnLeft']
+        if state[2] == 0 and (state[0], state[1] + 1) in self.allowed:
+            return allowed_Forward
+        if state[2] == 1 and (state[0] - 1, state[1]) in self.allowed:
+            return allowed_Forward
+        if state[2] == 2 and (state[0], state[1] - 1) in self.allowed:
+            return yesForward
+        if state[2] == 3 and (state[0] + 1, state[1]) in self.allowed:
+            return allowed_Forward
+        return not_Forward
+
 
     def result(self, state, action):
         """
