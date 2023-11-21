@@ -483,17 +483,36 @@ def initial_wumpus_axioms(xi, yi, width, height, heading='east'):
 # Axiom Generators: Temporal Axioms (added at each time step)
 #-------------------------------------------------------------------------------
 
+
+
 def axiom_generator_location_OK(x, y, t):
     """
+    Name:  Bhargav Kargatiya
+    ID:  AU2140121
     Assert the conditions under which a location is safe for the Agent.
     (Hint: Are Wumpi always dangerous?)
 
-    x,y := location
+    x, y := location
     t := time
+    Example Input: x=2, y=3, t=1
+    Example Output: OK2_3_1 <=> ((~P2_3 & ~W2_3) | (~P2_3 & ~WumpusAlive1))
+
+     {0}: Represents the state condition for a safe location.
+    ~{1}: Ensures there is no pit at the location.
+    ~{2}: Represents the state of the Wumpus being alive at time t.
+    ~{3}: Ensures there is no Wumpus at the location.
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
+    # The overall logical proposition can be read as follows:
+    # The location is safe if and only if there is no pit and either there is no Wumpus or the Wumpus is dead.
+    axiom_str = '{0} <=> ((~{1} & ~{3}) | (~{1} & ~{2}))'.format(
+        state_OK_str(x, y, t),
+        pit_str(x, y),
+        state_wumpus_alive_str(t),
+        wumpus_str(x, y)
+    )
+
     return axiom_str
+
 
 def generate_square_OK_axioms(t, xmin, xmax, ymin, ymax):
     axioms = []
@@ -510,14 +529,23 @@ def generate_square_OK_axioms(t, xmin, xmax, ymin, ymax):
 
 def axiom_generator_breeze_percept_and_location_property(x, y, t):
     """
+    Name: Bhargav Kargatiya
+    ID: AU2140121
     Assert that when in a location at time t, then perceiving a breeze
     at that time (a percept) means that the location is breezy (atemporal)
 
-    x,y := location
+    x, y := location
     t := time
+    Example Input: x=2, y=3, t=1
+    Example Output: L2_3_1 >> (Breeze1 <==> B2_3)
+
+    # {0}: Represents the state of being in a particular location at a specific time.
+    # {1}: Represents the perception of a breeze at a given time.
+    # {2}: Represents the atemporal property of the location being breezy.
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
+    # Logical expression: If in a specific location at a specific time, perceiving a breeze is equivalent to the location being breezy.
+    axiom_str = '{0} >> ({1} <==> {2})'.format(state_loc_str(
+        x, y, t), percept_breeze_str(t), breeze_str(x, y))
     return axiom_str
 
 def generate_breeze_percept_and_location_axioms(t, xmin, xmax, ymin, ymax):
@@ -531,14 +559,26 @@ def generate_breeze_percept_and_location_axioms(t, xmin, xmax, ymin, ymax):
 
 def axiom_generator_stench_percept_and_location_property(x, y, t):
     """
+    Name: Bhargav Kargatiya
+    ID: AU2140121
+
     Assert that when in a location at time t, then perceiving a stench
     at that time (a percept) means that the location has a stench (atemporal)
 
     x,y := location
     t := time
+
+    Example Input: x=2, y=3, t=1
+    Example Output: L2_3_1 >> (Stench1 <==> S2_3)
+
+    # {0}: Represents the state of being in a particular location at a specific time.
+    # {1}: Represents the perception of a stench at a given time.
+    # {2}: Represents the atemporal property of the location having a stench.
+
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
+    # Logical expression: If in a specific location at a specific time, perceiving a stench is equivalent to the location having a stench.
+    axiom_str = '{0} >> ({1} <==> {2})'.format(state_loc_str(
+        x, y, t), percept_stench_str(t), stench_str(x, y))
     return axiom_str
 
 def generate_stench_percept_and_location_axioms(t, xmin, xmax, ymin, ymax):
@@ -608,15 +648,23 @@ def generate_at_location_ssa(t, x, y, xmin, xmax, ymin, ymax, heading):
 
 def axiom_generator_have_arrow_ssa(t):
     """
+    Name: Bhargav Kargatiya
+    ID: AU2140121
     Assert the conditions at time t under which the Agent
     has the arrow at time t+1
 
     t := time
+    Example Input:  t=2
+    Example Output: HaveArrow3 <=> (HaveArrow2 & ~Shoot2)
+
+    # {0}: Represents the state of having the arrow at time t+1.
+    # {1}: Represents the state of having the arrow at time t.
+    # {2}: Represents the action of shooting at time t.
     """
-    axiom_str = ''
-    "*** YOUR CODE HERE ***"
-    # Comment or delete the next line once this function has been implemented.
-    utils.print_not_implemented()
+    # Logical expression: The Agent has the arrow at time t+1 if and only if
+    # the Agent has the arrow at time t and does not shoot at time t.
+    axiom_str = '{0} <=> ({1} & ~{2})'.format(state_have_arrow_str(t+1),
+                                              state_have_arrow_str(t), action_shoot_str(t))
     return axiom_str
 
 def axiom_generator_wumpus_alive_ssa(t):
