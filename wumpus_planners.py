@@ -132,14 +132,14 @@ class PlanRouteProblem(search.Problem):
         """
         Heuristic that will be used by search.astar_search()
         """
-        "*** YOUR CODE HERE ***"
+        "*** Aryan CODE HERE ***"
         pass
 
     def actions(self, state):
         """
         Return list of allowed actions that can be made in state
         """
-        "*** YOUR CODE HERE ***"
+        "*** Aryan CODE HERE ***"
         pass
 
 
@@ -147,14 +147,14 @@ class PlanRouteProblem(search.Problem):
         """
         Return the new state after applying action to state
         """
-        "*** YOUR CODE HERE ***"
+        "*** Bhargav CODE HERE ***"
         pass
 
     def goal_test(self, state):
         """
         Return True if state is a goal state
         """
-        "*** YOUR CODE HERE ***"
+        "*** Bhargav CODE HERE ***"
         return True
 
 #-------------------------------------------------------------------------------
@@ -237,28 +237,28 @@ class PlanShotProblem(search.Problem):
         """
         Heuristic that will be used by search.astar_search()
         """
-        "*** ADITYA CODE HERE ***"
+        "*** Freya CODE HERE ***"
         pass
 
     def actions(self, state):
         """
         Return list of allowed actions that can be made in state
         """
-        "*** ADITYA CODE HERE ***"
+        "*** Freya CODE HERE ***"
         pass
 
     def result(self, state, action):
         """
         Return the new state after applying action to state
         """
-        "*** ADITYA CODE HERE ***"
+        "*** AADITYA CODE HERE ***"
         pass
 
     def goal_test(self, state):
         """
         Return True if state is a goal state
         """
-        "*** ADITYA CODE HERE ***"
+        "*** AADITYA CODE HERE ***"
         return True
 
 #-------------------------------------------------------------------------------
