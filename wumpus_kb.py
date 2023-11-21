@@ -689,8 +689,8 @@ def axiom_generator_wumpus_alive_ssa(t):
 
 def axiom_generator_heading_north_ssa(t):
     """
-    Assert the conditions at time t under which the
-    Agent heading will be North at time t+1
+    Specify the conditions at time t for the
+    Agent to be oriented North at time t+1.
 
     t := time
     
@@ -706,8 +706,8 @@ def axiom_generator_heading_north_ssa(t):
 
 def axiom_generator_heading_east_ssa(t):
     """
-    Assert the conditions at time t under which the
-    Agent heading will be East at time t+1
+    Specify the conditions at time t for the
+    Agent to be oriented East at time t+1.
 
     t := time
     
@@ -722,8 +722,8 @@ def axiom_generator_heading_east_ssa(t):
 
 def axiom_generator_heading_south_ssa(t):
     """
-    Assert the conditions at time t under which the
-    Agent heading will be South at time t+1
+    Specify the conditions at time t for the
+    Agent to be oriented South at time t+1.
 
     t := time
     
@@ -738,8 +738,8 @@ def axiom_generator_heading_south_ssa(t):
 
 def axiom_generator_heading_west_ssa(t):
     """
-    Assert the conditions at time t under which the
-    Agent heading will be West at time t+1
+    Specify the conditions at time t for the
+    Agent to be oriented West at time t+1.
 
     t := time
     
