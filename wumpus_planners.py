@@ -400,6 +400,8 @@ class PlanShotProblem(search.Problem):
 
     def goal_test(self, state):
         """
+        Name : Aaditya Yadav
+        Id : AU2140094
         Return True if state is a goal state
         """
         possibleWumpusLocations = self.goals
