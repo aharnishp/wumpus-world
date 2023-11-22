@@ -114,11 +114,11 @@ class WumpusWorldScenario(object):
                     if ci > largest_ci: largest_ci = ci
                     for char in cell:
                         if char == 'W':
-                            objects.append((Wumpus(),(ci,ri)))
+                            pass # objects.append((Wumpus(),(ci,ri)))
                         elif char == 'P':
-                            objects.append((Pit(),(ci,ri)))
+                            pass # objects.append((Pit(),(ci,ri)))
                         elif char == 'G':
-                            objects.append((Gold(),(ci,ri)))
+                            pass # objects.append((Gold(),(ci,ri)))
                         elif char == 'A':
                             entrance = (ci,ri)
 
