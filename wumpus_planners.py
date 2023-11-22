@@ -389,10 +389,10 @@ class PlanShotProblem(search.Problem):
         if action == 'TurnRight':
             new_heading = (state[2] + 3) % 4
             return (state[0], state[1], new_heading)
-        else if action == 'TurnLeft':
+        if action == 'TurnLeft':
             new_heading = (state[2] + 1) % 4
             return (state[0], state[1], new_heading)
-        else if action == 'Forward':
+        if action == 'Forward':
             direction_changes = [(0, 1), (-1, 0), (0, -1), (1, 0)]
             x_change, y_change = direction_changes[state[2]]
             return (state[0] + x_change, state[1] + y_change, state[2])
@@ -400,25 +400,25 @@ class PlanShotProblem(search.Problem):
 
     def goal_test(self, state):
         """
-        Name : Aaditya Yadav
-        Id : AU2140094
         Return True if state is a goal state
         """
-       possibleWumpusLocations = self.goals
-       if state in self.goals:
-           return False
-       for location in possibleWumpusLocations:
-           if location[0] == state[0]:
-               if ((location[1] > state[1]) and state[2] == 0):
-                   return True
-               else if ((location[1] < state[1]) and state[2] == 2):
-                   return True
-           else if location[1] == state[1]:
-               if ((location[0] < state[0]) and state[2] == 1):
-                   return True
-               else if ((location[0] > state[0]) and state[2] == 3):
-                   return True
-       return False
+        possibleWumpusLocations = self.goals
+
+        if state in self.goals:
+            return False
+
+        for location in possibleWumpusLocations:
+            if location[0] == state[0]:
+                if ((location[1] > state[1]) and state[2] == 0):
+                    return True
+                if ((location[1] < state[1]) and state[2] == 2):
+                    return True
+            if location[1] == state[1]:
+                if ((location[0] < state[0]) and state[2] == 1):
+                    return True
+                if ((location[0] > state[0]) and state[2] == 3):
+                    return True
+        return False
 
 #-------------------------------------------------------------------------------
 
