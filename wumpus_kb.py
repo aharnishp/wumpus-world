@@ -145,9 +145,11 @@ proposition_bases_all = [proposition_bases_atemporal_location,
 # Axiom Generator: Current Percept Sentence
 #-------------------------------------------------------------------------------
 
-#def make_percept_sentence(t, tvec):
+
+# def make_percept_sentence(t, tvec):
 def axiom_generator_percept_sentence(t, tvec):
     """
+    ROGUE FUNCTION: The inputs are neglected and replaced with phyiscal percept
     Asserts that each percept proposition is True or False at time t.
 
     t := time
@@ -155,27 +157,34 @@ def axiom_generator_percept_sentence(t, tvec):
             percept propositions, in this order:
                 (<stench>,<breeze>,<glitter>,<bump>,<scream>)
 
+    Name: Aharnish Pithva
+    id: AU2040022
+
     Example:
         Input:  [False, True, False, False, True]
         Output: '~Stench0 & Breeze0 & ~Glitter0 & ~Bump0 & Scream0'
-
-    Name: Freya Shah
-    id: AU2120184
-
-    --> Test Input:
-    axiom= axiom_generator_percept_sentence(1,[False, True, False, False, True])
-    print(axiom)
-    --> Output:
-    ~Stench1 & Breeze1 & ~Glitter1 & ~Bump1 & Scream1
     """
-    percept_prop=[] #stores the percept name with true or false value
-    for i, percept_value in enumerate(tvec): #enumerate keeps track of the index along with the input values
-        percept_name = ['Stench', 'Breeze', 'Glitter', 'Bump', 'Scream'][i] #percept names
-        proposition = f"{'' if percept_value else '~'}{percept_name}{t}" #storing true or false value along with each percept name and time
-        percept_prop.append(proposition) #appending the percept in the list
-    
-    axiom_str = ' & '.join(percept_prop) 
+    # FIXME:
+    # old_tvec = tvec
+    # tvec = wumpus_colour_and_move.get_real_tvec()
+    # tvec[3]=old_tvec[3]
+
+    # input("Enter current detected colour: ")
+
+    old_tvec = tvec
+    tvec = wumpus_colour_and_move.get_input_tvec()
+    tvec[3]=old_tvec[3]
+
+    props = []
+    percepts = ['Stench','Breeze','Glitter','Bump','Scream']
+    for index in range(len(tvec)):
+        if tvec[index]:
+            props.append(percepts[index] + str(t))
+        else:
+            props.append('~' + percepts[index] + str(t))
+    axiom_str = ' & '.join(props)
     return axiom_str
+
 
 
 #-------------------------------------------------------------------------------
@@ -373,18 +382,11 @@ def axiom_generator_only_in_one_location(px, py, xmin, xmax, ymin, ymax, t = 0):
     xmin, xmax, ymin, ymax := the bounds of the environment.
     t := time; default=0
     """
-    axiom_str = ''
-    "*** AHARNISH CODE HERE ***"
-def axiom_generator_only_in_one_location(px, py, xmin, xmax, ymin, ymax, t = 0):
     """
-    Assert that the Agent can only be in one (the current xi,yi) location at time t.
-
-    xi,yi := the current location.
-    xmin, xmax, ymin, ymax := the bounds of the environment.
-    t := time; default=0
+    Name: Aharnish Pithva
+    id: AU2040022
     """
     axiom_str = ''
-    "*** AHARNISH CODE HERE ***"
 
 
     # inner loop to generate a single state where there is wumpus at exactly single position on the board
@@ -401,20 +403,6 @@ def axiom_generator_only_in_one_location(px, py, xmin, xmax, ymin, ymax, t = 0):
 
     return axiom_str
 
-
-    # inner loop to generate a single state where there is wumpus at exactly single position on the board
-    for xi in range(xmin, xmax + 1):
-        for yi in range(ymin,ymax+1):
-            if(xi != 0 or yi != 0):
-                axiom_str += " & "
-            if(px == xi and py == yi):    # this state represents wumpus at position (xi, yi)
-                axiom_str += state_loc_str(xi,yi,t=t)
-            else:                       # this state represents wumpus not at (xi, yi)
-                axiom_str += "~" + state_loc_str(xi,yi,t=t)
-                
-    # axiom_str += ")"
-
-    return axiom_str
 
 def axiom_generator_only_one_heading(heading = 'north', t = 0):
     """
@@ -424,22 +412,26 @@ def axiom_generator_only_one_heading(heading = 'north', t = 0):
                will be one of: 'north', 'east', 'south', 'west'
     t := time; default=0
     """
+    """
+    Name: Aharnish Pithva
+    id: AU2040022
+    """
 
     legal_headings = ["north", 'east', 'south', 'west']
 
     axiom_str = ''
-    "*** AHARNISH CODE HERE ***"
 
-    for indx, this_heading in iter(legal_headings):
+    for indx in range(len(legal_headings)):
+        this_heading = legal_headings[indx]
         if(indx != 0):
             axiom_str += " & "
         if(heading.lower() == this_heading.lower()):
-            axiom_str += heading.lower()
+            axiom_str += "Heading_" + this_heading
         else:
-            axiom_str += "~" + heading.lower()
+            axiom_str += "~" + "Heading_" + this_heading
         
         # insert current time to the knowledge state
-        axiom_str += t
+        axiom_str += str(t)
 
     return axiom_str
 
