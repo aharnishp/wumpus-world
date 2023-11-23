@@ -340,9 +340,6 @@ class PlanShotProblem(search.Problem):
                 if wumpus_loc[0] == explorer_loc[0] or wumpus_loc[1] == explorer_loc[1]:
                     shot_spots.append(explorer_loc)
 
-        # Calculate the Manhattan distance with heading for each shot spot
-        distance_to_shot_spots = [manhattan_distance_with_heading(node.state, goal) for goal in shot_spots]
-
         current_state= node.state
         calc_distance=[]
         for goal_state in shot_spots: #traversing through shot spots
@@ -374,7 +371,7 @@ class PlanShotProblem(search.Problem):
         if state[2] == 1 and (state[0] - 1, state[1]) in self.allowed:
             return allowed_Forward
         if state[2] == 2 and (state[0], state[1] - 1) in self.allowed:
-            return yesForward
+            return allowed_Forward
         if state[2] == 3 and (state[0] + 1, state[1]) in self.allowed:
             return allowed_Forward
         return not_Forward
